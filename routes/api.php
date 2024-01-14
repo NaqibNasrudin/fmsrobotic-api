@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function () {
 
 Route::prefix('/v1')->group(function() {
     Route::prefix('/user')->group(function() {
-        Route::post('register', [UserController::class, 'register']);
+        Route::post('register', [UserController::class, 'register'])->middleware('cors');
         Route::post('login', [UserController::class, 'login']);
     });
 
