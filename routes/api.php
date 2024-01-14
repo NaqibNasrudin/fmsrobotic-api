@@ -21,16 +21,17 @@ use PHPUnit\Framework\Attributes\Group;
 Route::middleware('auth:sanctum')->get('/user', function () {
     echo 'api success';
 });
+Route::group(['middleware' => 'cors'], function () {
+    Route::prefix('/v1')->group(function() {
+        Route::prefix('/user')->group(function() {
+            Route::post('register', [UserController::class, 'register']);
+            Route::post('login', [UserController::class, 'login']);
+        });
 
-Route::prefix('/v1')->group(function() {
-    Route::prefix('/user')->group(function() {
-        Route::post('register', [UserController::class, 'register'])->middleware('cors');
-        Route::post('login', [UserController::class, 'login']);
+        Route::prefix('/product')->group(function() {
+            Route::post('/add-product', [ProductController::class, 'addProduct']);
+            Route::get('/all-product', [ProductController::class, 'getAllProduct']);
+        });
+
     });
-
-    Route::prefix('/product')->group(function() {
-        Route::post('/add-product', [ProductController::class, 'addProduct']);
-        Route::get('/all-product', [ProductController::class, 'getAllProduct']);
-    });
-
 });
