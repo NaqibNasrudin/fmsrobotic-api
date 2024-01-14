@@ -31,6 +31,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::prefix('/product')->group(function() {
             Route::post('/add-product', [ProductController::class, 'addProduct']);
             Route::get('/all-product', [ProductController::class, 'getAllProduct']);
+            Route::get('/search', [ProductController::class, 'searchProduct']);
         });
 
     });

@@ -52,4 +52,17 @@ class ProductController extends Controller
 
         return response()->json($response, 200);
     }
+
+    public function searchProduct(Request $request) {
+        $item = $request->item;
+        $product = Product::where('product_id', 'LIKE', '%'.$item.'%')->orWhere('name', 'LIKE', '%'.$item.'%')->get();
+
+        $response = [
+            'status' => 'success',
+            'message' => 'Products are retrieved successfully.',
+            'data' => $product,
+        ];
+
+        return response()->json($response, 200);
+    }
 }
